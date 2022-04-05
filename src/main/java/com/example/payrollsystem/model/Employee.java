@@ -1,5 +1,8 @@
 package com.example.payrollsystem.model;
 
+import com.sun.istack.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,22 +18,34 @@ public class Employee {
     private String employeeLastName;
     private String employeeEmail;
     private Integer employeeAge;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate employeeDateOfBirth;
     private String employeeAddress;
     private String employeeContact;
-    private String employeeDepartment;
     private String employeeGender;
-    private String employeeJobTitle;
-    private Double employeeSalary;
 
     public Employee() {
 
     }
 
+    public Employee(String employeeFirstName, String employeeLastName,
+                    String employeeEmail, Integer employeeAge,
+                    LocalDate employeeDateOfBirth, String employeeAddress,
+                    String employeeContact, String employeeGender) {
+        this.employeeFirstName = employeeFirstName;
+        this.employeeLastName = employeeLastName;
+        this.employeeEmail = employeeEmail;
+        this.employeeAge = employeeAge;
+        this.employeeDateOfBirth = employeeDateOfBirth;
+        this.employeeAddress = employeeAddress;
+        this.employeeContact = employeeContact;
+        this.employeeGender = employeeGender;
+    }
+
     public Employee(Integer employeeId, String employeeFirstName, String employeeLastName,
-                    String employeeEmail, Integer employeeAge, LocalDate employeeDateOfBirth,
-                    String employeeAddress, String employeeContact, String employeeDepartment,
-                    String employeeGender, String employeeJobTitle, Double employeeSalary) {
+                    String employeeEmail, Integer employeeAge,
+                    LocalDate employeeDateOfBirth, String employeeAddress,
+                    String employeeContact, String employeeGender) {
         this.employeeId = employeeId;
         this.employeeFirstName = employeeFirstName;
         this.employeeLastName = employeeLastName;
@@ -39,27 +54,7 @@ public class Employee {
         this.employeeDateOfBirth = employeeDateOfBirth;
         this.employeeAddress = employeeAddress;
         this.employeeContact = employeeContact;
-        this.employeeDepartment = employeeDepartment;
         this.employeeGender = employeeGender;
-        this.employeeJobTitle = employeeJobTitle;
-        this.employeeSalary = employeeSalary;
-    }
-
-    public Employee(String employeeFirstName, String employeeLastName, String employeeEmail,
-                    Integer employeeAge, LocalDate employeeDateOfBirth, String employeeAddress,
-                    String employeeContact, String employeeDepartment,
-                    String employeeGender, String employeeJobTitle, Double employeeSalary) {
-        this.employeeFirstName = employeeFirstName;
-        this.employeeLastName = employeeLastName;
-        this.employeeEmail = employeeEmail;
-        this.employeeAge = employeeAge;
-        this.employeeDateOfBirth = employeeDateOfBirth;
-        this.employeeAddress = employeeAddress;
-        this.employeeContact = employeeContact;
-        this.employeeDepartment = employeeDepartment;
-        this.employeeGender = employeeGender;
-        this.employeeJobTitle = employeeJobTitle;
-        this.employeeSalary = employeeSalary;
     }
 
     public Integer getEmployeeId() {
@@ -126,36 +121,12 @@ public class Employee {
         this.employeeContact = employeeContact;
     }
 
-    public String getEmployeeDepartment() {
-        return employeeDepartment;
-    }
-
-    public void setEmployeeDepartment(String employeeDepartment) {
-        this.employeeDepartment = employeeDepartment;
-    }
-
     public String getEmployeeGender() {
         return employeeGender;
     }
 
     public void setEmployeeGender(String employeeGender) {
         this.employeeGender = employeeGender;
-    }
-
-    public String getEmployeeJobTitle() {
-        return employeeJobTitle;
-    }
-
-    public void setEmployeeJobTitle(String employeeJobTitle) {
-        this.employeeJobTitle = employeeJobTitle;
-    }
-
-    public Double getEmployeeSalary() {
-        return employeeSalary;
-    }
-
-    public void setEmployeeSalary(Double employeeSalary) {
-        this.employeeSalary = employeeSalary;
     }
 
     @Override
@@ -169,10 +140,7 @@ public class Employee {
                 ", employeeDateOfBirth=" + employeeDateOfBirth +
                 ", employeeAddress='" + employeeAddress + '\'' +
                 ", employeeContact='" + employeeContact + '\'' +
-                ", employeeDepartment='" + employeeDepartment + '\'' +
                 ", employeeGender='" + employeeGender + '\'' +
-                ", employeeJobTitle='" + employeeJobTitle + '\'' +
-                ", employeeSalary=" + employeeSalary +
                 '}';
     }
 }
