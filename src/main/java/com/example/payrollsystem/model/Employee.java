@@ -1,12 +1,8 @@
 package com.example.payrollsystem.model;
 
-import com.sun.istack.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -14,14 +10,22 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer employeeId;
+    @Column(nullable = false)
     private String employeeFirstName;
+    @Column(nullable = false)
     private String employeeLastName;
+    @Column(nullable = false)
     private String employeeEmail;
+    @Column(nullable = false)
     private Integer employeeAge;
+    @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate employeeDateOfBirth;
+    @Column(nullable = false)
     private String employeeAddress;
+    @Column(nullable = false)
     private String employeeContact;
+    @Column(nullable = false)
     private String employeeGender;
 
     public Employee() {
