@@ -23,7 +23,7 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    // return an employees data
+    // return an employee data
     public Employee getEmployee(Integer employeeId) {
         return employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new IllegalStateException("employee with id::" + employeeId + " not fount."));

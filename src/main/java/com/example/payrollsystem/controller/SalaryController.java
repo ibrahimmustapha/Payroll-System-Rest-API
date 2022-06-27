@@ -19,12 +19,22 @@ public class SalaryController {
     }
 
     @GetMapping
-    public List<Salary> getSalary() {
-        return salaryService.getSalary();
+    public List<Salary> getSalaries() {
+        return salaryService.getSalaries();
+    }
+
+    @GetMapping
+    public Salary getSalary(@PathVariable("id") Integer salaryId) {
+        return salaryService.getSalary(salaryId);
     }
 
     @PostMapping
     public void addNewSalary(@RequestBody Salary salary) {
         salaryService.addNewSalary(salary);
+    }
+
+    @PutMapping("/update/{id}")
+    public Salary updateSalary(@RequestBody Salary salary, @PathVariable("id") Integer salaryId) {
+        return salaryService.updateSalary(salary, salaryId);
     }
 }

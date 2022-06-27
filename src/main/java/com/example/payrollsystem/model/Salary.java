@@ -8,7 +8,7 @@ public class Salary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer salaryId;
     @Column(nullable = false)
-    private Double amount;
+    private Double salary;
     @Transient
     private Double annualSalary;
     @Column(nullable = false)
@@ -18,15 +18,8 @@ public class Salary {
 
     }
 
-    public Salary(Integer salaryId, Double amount, Double annualSalary, Double salaryBonus) {
-        this.salaryId = salaryId;
-        this.amount = amount;
-        this.annualSalary = annualSalary;
-        this.salaryBonus = salaryBonus;
-    }
-
-    public Salary(Double amount, Double annualSalary, Double salaryBonus) {
-        this.amount = amount;
+    public Salary(Double salary, Double annualSalary, Double salaryBonus) {
+        this.salary = salary;
         this.annualSalary = annualSalary;
         this.salaryBonus = salaryBonus;
     }
@@ -39,17 +32,16 @@ public class Salary {
         this.salaryId = salaryId;
     }
 
-    public Double getAmount() {
-        return amount;
+    public Double getSalary() {
+        return salary * 12;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setSalary(Double salary) {
+        this.salary = salary;
     }
 
     public Double getAnnualSalary() {
-        annualSalary = 12 * amount;
-        return  annualSalary;
+        return annualSalary;
     }
 
     public void setAnnualSalary(Double annualSalary) {
@@ -62,15 +54,5 @@ public class Salary {
 
     public void setSalaryBonus(Double salaryBonus) {
         this.salaryBonus = salaryBonus;
-    }
-
-    @Override
-    public String toString() {
-        return "Salary{" +
-                "salaryId=" + salaryId +
-                ", amount=" + amount +
-                ", annualSalary=" + annualSalary +
-                ", salaryBonus=" + salaryBonus +
-                '}';
     }
 }
