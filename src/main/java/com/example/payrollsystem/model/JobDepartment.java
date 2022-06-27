@@ -15,9 +15,7 @@ public class JobDepartment {
     private String jobDescription;
     private String jobSalaryRange;
 
-    public JobDepartment() {
-
-    }
+    public JobDepartment() {}
 
     public JobDepartment(Department jobDept, String jobName, String jobDescription, String jobSalaryRange) {
         this.jobDept = jobDept;

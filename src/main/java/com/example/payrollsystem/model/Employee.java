@@ -16,7 +16,7 @@ public class Employee {
     private String employeeLastName;
     @Column(nullable = false)
     private String employeeEmail;
-    @Column(nullable = false)
+    @Transient
     private Integer employeeAge;
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -94,7 +94,7 @@ public class Employee {
     }
 
     public Integer getEmployeeAge() {
-        return employeeAge;
+        return LocalDate.now().getYear() - employeeDateOfBirth.getYear();
     }
 
     public void setEmployeeAge(Integer employeeAge) {

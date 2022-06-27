@@ -22,6 +22,7 @@ public class SalaryService {
         return salaryRepository.findAll();
     }
 
+    // add a new salary
     public void addNewSalary(Salary salary) {
         try {
             salaryRepository.save(salary);
