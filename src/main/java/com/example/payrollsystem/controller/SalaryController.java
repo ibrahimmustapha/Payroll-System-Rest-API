@@ -23,7 +23,7 @@ public class SalaryController {
         return salaryService.getSalaries();
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public Salary getSalary(@PathVariable("id") Integer salaryId) {
         return salaryService.getSalary(salaryId);
     }

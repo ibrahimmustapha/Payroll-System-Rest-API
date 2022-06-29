@@ -1,15 +1,20 @@
 package com.example.payrollsystem.model;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer employeeId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+//    @Column(length = 128)
+    private String employeeId;
     @Column(nullable = false)
     private String employeeFirstName;
     @Column(nullable = false)
@@ -32,8 +37,7 @@ public class Employee {
 
     }
 
-    public Employee(String employeeFirstName, String employeeLastName,
-                    String employeeEmail, Integer employeeAge,
+    public Employee(String employeeFirstName, String employeeLastName, String employeeEmail, Integer employeeAge,
                     LocalDate employeeDateOfBirth, String employeeAddress,
                     String employeeContact, String employeeGender) {
         this.employeeFirstName = employeeFirstName;
@@ -46,26 +50,11 @@ public class Employee {
         this.employeeGender = employeeGender;
     }
 
-    public Employee(Integer employeeId, String employeeFirstName, String employeeLastName,
-                    String employeeEmail, Integer employeeAge,
-                    LocalDate employeeDateOfBirth, String employeeAddress,
-                    String employeeContact, String employeeGender) {
-        this.employeeId = employeeId;
-        this.employeeFirstName = employeeFirstName;
-        this.employeeLastName = employeeLastName;
-        this.employeeEmail = employeeEmail;
-        this.employeeAge = employeeAge;
-        this.employeeDateOfBirth = employeeDateOfBirth;
-        this.employeeAddress = employeeAddress;
-        this.employeeContact = employeeContact;
-        this.employeeGender = employeeGender;
-    }
-
-    public Integer getEmployeeId() {
+    public String getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(Integer employeeId) {
+    public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
     }
 

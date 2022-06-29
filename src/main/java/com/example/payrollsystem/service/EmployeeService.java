@@ -1,13 +1,23 @@
 package com.example.payrollsystem.service;
 
+import com.example.payrollsystem.constant.FileUploadUtil;
 import com.example.payrollsystem.dao.EmployeeRepository;
 import com.example.payrollsystem.exception.EmployeeNotFoundException;
+import com.example.payrollsystem.messaage.ResponseMessage;
 import com.example.payrollsystem.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.print.DocFlavor;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class EmployeeService {
@@ -24,7 +34,7 @@ public class EmployeeService {
     }
 
     // return an employee data
-    public Employee getEmployee(Integer employeeId) {
+    public Employee getEmployee(String employeeId) {
         return employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new IllegalStateException("employee with id::" + employeeId + " not fount."));
     }
@@ -39,7 +49,7 @@ public class EmployeeService {
     }
 
     // update employee
-    public Employee updateEmployee(Employee employee, Integer employeeId) {
+    public Employee updateEmployee(Employee employee, String employeeId) {
         Employee existingEmployee = employeeRepository.findById(employeeId).
                 orElseThrow(() -> new EmployeeNotFoundException("Employee with id::" + employeeId + " not found."));
         employee.setEmployeeFirstName(employee.getEmployeeFirstName());
@@ -55,7 +65,7 @@ public class EmployeeService {
     }
 
     // delete employee
-    public String deleteEmployee(Integer employeeId) {
+    public String deleteEmployee(String employeeId) {
         employeeRepository.deleteById(employeeId);
         return "Employee with id::" + employeeId + " has been deleted";
     }

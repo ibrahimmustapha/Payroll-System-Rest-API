@@ -4,8 +4,12 @@ import com.example.payrollsystem.model.Employee;
 import com.example.payrollsystem.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/v1/employees")
@@ -24,7 +28,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public Employee getEmployee(@PathVariable("id") Integer employeeId) {
+    public Employee getEmployee(@PathVariable("id") String employeeId) {
         return employeeService.getEmployee(employeeId);
     }
 
@@ -34,12 +38,12 @@ public class EmployeeController {
     }
 
     @PutMapping("/update/{id}")
-    public Employee employee (@RequestBody Employee employee, @PathVariable("id") Integer employeeId) {
+    public Employee employee (@RequestBody Employee employee, @PathVariable("id") String employeeId) {
         return employeeService.updateEmployee(employee, employeeId);
     }
 
     @DeleteMapping("/delete/{employeeId}")
-    public String deleteEmployee(@PathVariable("employeeId") Integer employeeId) {
+    public String deleteEmployee(@PathVariable("employeeId") String employeeId) {
         return employeeService.deleteEmployee(employeeId);
     }
 }

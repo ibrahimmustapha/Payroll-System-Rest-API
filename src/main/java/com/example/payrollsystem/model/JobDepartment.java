@@ -13,15 +13,15 @@ public class JobDepartment {
     private Department jobDept;
     private String jobName;
     private String jobDescription;
-    private String jobSalaryRange;
+    private String jobPosition;
 
     public JobDepartment() {}
 
-    public JobDepartment(Department jobDept, String jobName, String jobDescription, String jobSalaryRange) {
+    public JobDepartment(Department jobDept, String jobName, String jobDescription, String jobPosition) {
         this.jobDept = jobDept;
         this.jobName = jobName;
         this.jobDescription = jobDescription;
-        this.jobSalaryRange = jobSalaryRange;
+        this.jobPosition = jobPosition;
     }
 
     public Integer getJobId() {
@@ -56,12 +56,12 @@ public class JobDepartment {
         this.jobDescription = jobDescription;
     }
 
-    public String getJobSalaryRange() {
-        return jobSalaryRange;
+    public String getJobPosition() {
+        return jobPosition;
     }
 
-    public void setJobSalaryRange(String jobSalaryRange) {
-        this.jobSalaryRange = jobSalaryRange;
+    public void setJobPosition(String jobPosition) {
+        this.jobPosition = jobPosition;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class JobDepartment {
                 ", jobDept=" + jobDept +
                 ", jobName='" + jobName + '\'' +
                 ", jobDescription='" + jobDescription + '\'' +
-                ", jobSalaryRange='" + jobSalaryRange + '\'' +
+                ", jobPosition='" + jobPosition + '\'' +
                 '}';
     }
 }
