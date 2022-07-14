@@ -5,15 +5,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Entity
-public class Employee {
+public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
-//    @Column(length = 128)
     private String employeeId;
     @Column(nullable = false)
     private String employeeFirstName;
@@ -32,6 +31,10 @@ public class Employee {
     private String employeeContact;
     @Column(nullable = false)
     private String employeeGender;
+    @Nullable
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private EmployeeImage employeeImage;
 
     public Employee() {
 
@@ -39,7 +42,7 @@ public class Employee {
 
     public Employee(String employeeFirstName, String employeeLastName, String employeeEmail, Integer employeeAge,
                     LocalDate employeeDateOfBirth, String employeeAddress,
-                    String employeeContact, String employeeGender) {
+                    String employeeContact, String employeeGender, EmployeeImage employeeImage) {
         this.employeeFirstName = employeeFirstName;
         this.employeeLastName = employeeLastName;
         this.employeeEmail = employeeEmail;
@@ -48,6 +51,7 @@ public class Employee {
         this.employeeAddress = employeeAddress;
         this.employeeContact = employeeContact;
         this.employeeGender = employeeGender;
+        this.employeeImage = employeeImage;
     }
 
     public String getEmployeeId() {
@@ -122,10 +126,18 @@ public class Employee {
         this.employeeGender = employeeGender;
     }
 
+    public EmployeeImage getEmployeeImage() {
+        return employeeImage;
+    }
+
+    public void setEmployeeImage(EmployeeImage employeeImage) {
+        this.employeeImage = employeeImage;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
-                "employeeId=" + employeeId +
+                "employeeId='" + employeeId + '\'' +
                 ", employeeFirstName='" + employeeFirstName + '\'' +
                 ", employeeLastName='" + employeeLastName + '\'' +
                 ", employeeEmail='" + employeeEmail + '\'' +
@@ -134,6 +146,7 @@ public class Employee {
                 ", employeeAddress='" + employeeAddress + '\'' +
                 ", employeeContact='" + employeeContact + '\'' +
                 ", employeeGender='" + employeeGender + '\'' +
+                ", employeeImage=" + employeeImage +
                 '}';
     }
 }
