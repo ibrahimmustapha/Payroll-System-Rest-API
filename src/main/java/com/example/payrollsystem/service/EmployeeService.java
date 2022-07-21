@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import javax.xml.ws.Response;
 import java.util.List;
 import java.util.Optional;
@@ -38,24 +39,15 @@ public class EmployeeService {
                 .orElseThrow(() -> new IllegalStateException("employee with id::" + employeeId + " not fount."));
     }
 
-    // add a new employee
-    public void addNewEmployee(Employee employee) {
-        Optional<Employee> employeeOptional = employeeRepository.findByEmployeeEmail(employee.getEmployeeEmail());
-        if (employeeOptional.isPresent()) {
-            throw new IllegalStateException("email taken");
-        }
-        employeeRepository.save(employee);
-    }
-
     // add employee photo
-    public void addEmployeePhoto(Employee employee, String employeeId, MultipartFile file) {
+    public void addNewEmployee(Employee employee, MultipartFile file) {
         try {
-            Employee existingEmployee = employeeRepository.findById(employeeId)
-                    .orElseThrow(() -> new EmployeeNotFoundException("Employee with id::" + employeeId + " not found."));
+            Optional<Employee> employeeOptional = employeeRepository.findByEmployeeEmail(employee.getEmployeeEmail());
+            if (employeeOptional.isPresent()) throw new IllegalStateException("email taken");
             String fileName = StringUtils.cleanPath(file.getOriginalFilename());
             EmployeeImage employeeImage = new EmployeeImage(fileName, file.getContentType(), file.getBytes());
-            employee.setEmployeeImage(employeeImage);
             employeeImageRepository.save(employeeImage);
+            employee.setEmployeeImage(employeeImage);
             employeeRepository.save(employee);
         } catch (Exception e) {
             e.printStackTrace();
