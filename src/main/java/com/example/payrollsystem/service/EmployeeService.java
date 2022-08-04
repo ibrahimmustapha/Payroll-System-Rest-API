@@ -72,6 +72,8 @@ public class EmployeeService {
         employee.setEmployeeAddress(employee.getEmployeeAddress());
         employee.setEmployeeContact(employee.getEmployeeContact());
         employee.setEmployeeGender(employee.getEmployeeGender());
+        employee.setSalary(employee.getSalary());
+        employee.setEmployeeImage(employee.getEmployeeImage());
         return employeeRepository.save(employee);
     }
 
