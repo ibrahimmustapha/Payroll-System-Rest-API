@@ -2,9 +2,11 @@ package com.example.payrollsystem.service;
 
 import com.example.payrollsystem.dao.EmployeeImageRepository;
 import com.example.payrollsystem.dao.EmployeeRepository;
+import com.example.payrollsystem.dao.SalaryRepository;
 import com.example.payrollsystem.exception.EmployeeNotFoundException;
 import com.example.payrollsystem.model.Employee;
 import com.example.payrollsystem.model.EmployeeImage;
+import com.example.payrollsystem.model.Salary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -18,12 +20,14 @@ import java.util.Optional;
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeImageRepository employeeImageRepository;
-    private static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images";
+    private final SalaryRepository salaryRepository;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository, EmployeeImageRepository employeeImageRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, EmployeeImageRepository employeeImageRepository,
+                           SalaryRepository salaryRepository) {
         this.employeeRepository = employeeRepository;
         this.employeeImageRepository = employeeImageRepository;
+        this.salaryRepository = salaryRepository;
     }
 
     // return all list of available employee
@@ -44,7 +48,10 @@ public class EmployeeService {
             if (employeeOptional.isPresent()) throw new IllegalStateException("email taken");
             String fileName = StringUtils.cleanPath(file.getOriginalFilename());
             EmployeeImage employeeImage = new EmployeeImage(fileName, file.getContentType(), file.getBytes());
+            Salary salary = employee.getSalary();
+            salaryRepository.save(salary);
             employeeImageRepository.save(employeeImage);
+            employee.setSalary(salary);
             employee.setEmployeeImage(employeeImage);
             employeeRepository.save(employee);
         } catch (Exception e) {

@@ -1,5 +1,8 @@
 package com.example.payrollsystem.model;
 
+import com.example.payrollsystem.constant.EmployeeGender;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
@@ -29,12 +32,16 @@ public class Employee implements Serializable {
     private String employeeAddress;
     @Column(nullable = false)
     private String employeeContact;
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String employeeGender;
+    private EmployeeGender employeeGender;
     @Nullable
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "employee_image_id")
     private EmployeeImage employeeImage;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "salary_id")
+    private Salary salary;
 
     public Employee() {
 
@@ -42,7 +49,7 @@ public class Employee implements Serializable {
 
     public Employee(String employeeFirstName, String employeeLastName, String employeeEmail, Integer employeeAge,
                     LocalDate employeeDateOfBirth, String employeeAddress,
-                    String employeeContact, String employeeGender, EmployeeImage employeeImage) {
+                    String employeeContact, EmployeeGender employeeGender, @Nullable EmployeeImage employeeImage, Salary salary) {
         this.employeeFirstName = employeeFirstName;
         this.employeeLastName = employeeLastName;
         this.employeeEmail = employeeEmail;
@@ -52,6 +59,7 @@ public class Employee implements Serializable {
         this.employeeContact = employeeContact;
         this.employeeGender = employeeGender;
         this.employeeImage = employeeImage;
+        this.salary = salary;
     }
 
     public String getEmployeeId() {
@@ -118,11 +126,11 @@ public class Employee implements Serializable {
         this.employeeContact = employeeContact;
     }
 
-    public String getEmployeeGender() {
+    public EmployeeGender getEmployeeGender() {
         return employeeGender;
     }
 
-    public void setEmployeeGender(String employeeGender) {
+    public void setEmployeeGender(EmployeeGender employeeGender) {
         this.employeeGender = employeeGender;
     }
 
@@ -134,19 +142,11 @@ public class Employee implements Serializable {
         this.employeeImage = employeeImage;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "employeeId='" + employeeId + '\'' +
-                ", employeeFirstName='" + employeeFirstName + '\'' +
-                ", employeeLastName='" + employeeLastName + '\'' +
-                ", employeeEmail='" + employeeEmail + '\'' +
-                ", employeeAge=" + employeeAge +
-                ", employeeDateOfBirth=" + employeeDateOfBirth +
-                ", employeeAddress='" + employeeAddress + '\'' +
-                ", employeeContact='" + employeeContact + '\'' +
-                ", employeeGender='" + employeeGender + '\'' +
-                ", employeeImage=" + employeeImage +
-                '}';
+    public Salary getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Salary salary) {
+        this.salary = salary;
     }
 }
